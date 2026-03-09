@@ -1,5 +1,5 @@
 {
-  "installCommand": "npm install && cd avatar-test && npm install",
-  "buildCommand": "npm run build && cd avatar-test && npm run build",
+  "installCommand": "npm install",
+  "buildCommand": "npm run build && cd avatar-test && npm install && npm run build",
   "outputDirectory": "avatar-test/dist"
 }

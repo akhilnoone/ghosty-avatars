@@ -48,10 +48,8 @@ export function GhostyAvatar({
   initialLetterSize = 66,
   label,
 }: GhostyAvatarProps) {
-  const traits = useMemo(() => deriveTraits(name, colors), [name, colors]);
+  const traits = useMemo(() => deriveTraits(name.trim() || "?", colors), [name, colors]);
   const instanceRef = useRef<ViewModelInstance | null>(null);
-  const traitsRef = useRef(traits);
-  const initialLetterSizeRef = useRef(initialLetterSize);
 
   // Detect prefers-reduced-motion (WCAG 2.3.3 / 2.2.2)
   const reducedMotion = useRef(
@@ -60,6 +58,15 @@ export function GhostyAvatar({
       : false
   );
 
+  const { rive, RiveComponent } = useRive({
+    src: src ?? DEFAULT_RIV_SRC,
+    stateMachines: stateMachine,
+    autoplay: !reducedMotion.current,
+  });
+
+  // Keep reduced-motion preference in sync.
+  // rive is in deps so the handler is re-registered once Rive loads,
+  // ensuring rive?.pause() / rive?.play() are never stale.
   useEffect(() => {
     const mq = window.matchMedia("(prefers-reduced-motion: reduce)");
     const handler = (e: MediaQueryListEvent) => {
@@ -72,20 +79,11 @@ export function GhostyAvatar({
     };
     mq.addEventListener("change", handler);
     return () => mq.removeEventListener("change", handler);
-  // rive intentionally omitted — handler captures latest via closure ref below
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [stateMachine]);
+  }, [rive, stateMachine]);
 
-  useEffect(() => { traitsRef.current = traits; }, [traits]);
-  useEffect(() => { initialLetterSizeRef.current = initialLetterSize; }, [initialLetterSize]);
-
-  const { rive, RiveComponent } = useRive({
-    src: src || DEFAULT_RIV_SRC,
-    stateMachines: stateMachine,
-    autoplay: !reducedMotion.current,
-  });
-
-  // Bind the VM instance once when Rive loads
+  // Bind the VM instance once when Rive loads.
+  // traits and initialLetterSize are included so the latest values
+  // are applied at bind time without needing separate refs.
   useEffect(() => {
     if (!rive || instanceRef.current) return;
 
@@ -104,14 +102,12 @@ export function GhostyAvatar({
     instanceRef.current = instance;
     rive.bindViewModelInstance(instance);
 
-    // Apply current props immediately after binding
-    const t = traitsRef.current;
     const letterProp = instance.string("initialLetter");
-    if (letterProp) letterProp.value = t.initial;
+    if (letterProp) letterProp.value = traits.initial;
     const colorProp = instance.color("bgColour");
-    if (colorProp) colorProp.value = hexToRiveColor(t.bgColor);
+    if (colorProp) colorProp.value = hexToRiveColor(traits.bgColor);
     const sizeProp = instance.number("initialLetterSize");
-    if (sizeProp) sizeProp.value = initialLetterSizeRef.current;
+    if (sizeProp) sizeProp.value = initialLetterSize;
 
     // Only enable blinking if user hasn't requested reduced motion (WCAG 2.2.2)
     if (!reducedMotion.current) {
@@ -119,9 +115,9 @@ export function GhostyAvatar({
       const isBlinking = inputs?.find(i => i.name === "isBlinking");
       if (isBlinking) isBlinking.value = true;
     }
-  }, [rive, viewModel, stateMachine]);
+  }, [rive, viewModel, stateMachine, traits, initialLetterSize]);
 
-  // Update properties whenever traits change
+  // Update VM properties whenever traits or letter size change
   useEffect(() => {
     const instance = instanceRef.current;
     if (!instance) return;

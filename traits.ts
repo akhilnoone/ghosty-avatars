@@ -18,6 +18,14 @@ export const DEFAULT_COLORS = [
   "4A8FE8", // sky
   "D4654A", // terracotta
   "7B6FE8", // violet
+  "EF4444", // red
+  "14B8A6", // teal
+  "EC4899", // pink
+  "EAB308", // yellow
+  "6366F1", // indigo
+  "F97316", // orange
+  "22C55E", // green
+  "A855F7", // purple
 ] as const;
 
 export interface AvatarTraits {
@@ -38,7 +46,8 @@ export function deriveTraits(
   colors: readonly string[] = DEFAULT_COLORS
 ): AvatarTraits {
   const hash = stringHash(name);
-  const initial = name.trim().charAt(0).toUpperCase() || "?";
+  const match = name.match(/[a-zA-Z0-9]/);
+  const initial = match ? match[0].toUpperCase() : "?";
   const colorIndex = hash % colors.length;
   const bgColor = colors[colorIndex];
 

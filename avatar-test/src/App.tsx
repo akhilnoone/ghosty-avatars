@@ -61,7 +61,10 @@ function App() {
   return (
     <>
       <nav className="nav">
-        <div className="nav-logo">Ghosty<span> Avatar</span></div>
+        <div className="nav-logo">
+          <GhostyAvatar name="ghosty" size={28} borderRadius="6px" label="" />
+          Ghosty<span> Avatar</span>
+        </div>
         <div className="nav-links">
           <a href="https://www.npmjs.com/package/ghosty-avatars" target="_blank" rel="noreferrer" className="nav-link">npm</a>
           <a href="https://github.com/akhilnoone/ghosty-avatars" target="_blank" rel="noreferrer" className="nav-link">GitHub</a>

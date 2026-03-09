@@ -1,5 +1,5 @@
 import { useEffect, useRef, useMemo, CSSProperties } from "react";
-import { useRive } from "@rive-app/react-canvas";
+import { useRive, Layout, Fit, Alignment } from "@rive-app/react-canvas";
 import { ViewModelInstance } from "@rive-app/canvas";
 import { deriveTraits, DEFAULT_COLORS } from "./traits";
 import { hexToRiveColor } from "./color";
@@ -62,6 +62,7 @@ export function GhostyAvatar({
     src: src ?? DEFAULT_RIV_SRC,
     stateMachines: stateMachine,
     autoplay: !reducedMotion.current,
+    layout: new Layout({ fit: Fit.Contain, alignment: Alignment.TopCenter }),
   });
 
   // Keep reduced-motion preference in sync.

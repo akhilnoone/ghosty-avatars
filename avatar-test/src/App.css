@@ -448,6 +448,36 @@ body {
   padding-right: 24px;
 }
 
+/* ── Sizes showcase ── */
+.sizes-showcase {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+}
+
+.sizes-row {
+  display: flex;
+  align-items: flex-end;
+  gap: 24px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.size-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+
+.size-label {
+  font-size: 11px;
+  font-weight: 500;
+  color: var(--text-faint);
+  letter-spacing: 0.03em;
+}
+
 /* ── Stats bar ── */
 .stats-bar {
   display: flex;
@@ -811,6 +841,7 @@ body {
 
 /* ── Section spacing ── */
 .page > .showcase,
+.page > .sizes-showcase,
 .page > .stats-bar,
 .page > .problem-section,
 .page > .features-section,
@@ -922,6 +953,7 @@ body {
   }
 
   .page > .showcase,
+  .page > .sizes-showcase,
   .page > .stats-bar,
   .page > .problem-section,
   .page > .features-section,

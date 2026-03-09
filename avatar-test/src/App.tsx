@@ -123,6 +123,19 @@ function App() {
           </div>
         </div>
 
+        {/* ── Sizes ── */}
+        <div className="sizes-showcase">
+          <span className="showcase-label">Works at any size</span>
+          <div className="sizes-row">
+            {([32, 40, 48, 64] as const).map((s) => (
+              <div key={s} className="size-item">
+                <GhostyAvatar name="alice" size={s} />
+                <span className="size-label">{s}px{s === 40 ? " · default" : ""}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+
         {/* ── Stats bar ── */}
         <div className="stats-bar">
           <div className="stat"><span className="stat-value">~2KB</span><span className="stat-label">JS · 57KB Rive</span></div>

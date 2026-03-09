@@ -11,10 +11,9 @@
   },
   "dependencies": {
     "@rive-app/react-canvas": "^4.27.0",
-    "ghosty-avatars": "file:../avatar",
+    "ghosty-avatars": "file:..",
     "react": "^19.2.0",
-    "react-dom": "^19.2.0",
-    "rivehash": "file:../avatar"
+    "react-dom": "^19.2.0"
   },
   "devDependencies": {
     "@eslint/js": "^9.39.1",

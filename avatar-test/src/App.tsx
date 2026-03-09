@@ -62,7 +62,7 @@ function App() {
     <>
       <nav className="nav">
         <div className="nav-logo">
-          <GhostyAvatar name="ghosty" size={32} borderRadius="6px" label="" />
+          <GhostyAvatar name="ghosty" size={44} borderRadius="8px" label="" />
           Ghosty<span> Avatar</span>
         </div>
         <div className="nav-links">

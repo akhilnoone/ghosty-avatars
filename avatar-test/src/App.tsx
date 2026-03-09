@@ -61,7 +61,7 @@ function App() {
   return (
     <>
       <nav className="nav">
-        <div className="nav-logo">Ghosty<span> Avatars</span></div>
+        <div className="nav-logo">Ghosty<span> Avatar</span></div>
         <div className="nav-links">
           <a href="https://www.npmjs.com/package/ghosty-avatars" target="_blank" rel="noreferrer" className="nav-link">npm</a>
           <a href="https://github.com/akhilnoone/ghosty-avatars" target="_blank" rel="noreferrer" className="nav-link">GitHub</a>
@@ -141,7 +141,7 @@ function App() {
             fragile, and always the last thing on your list.
           </p>
           <p className="problem-solution">
-            Ghosty Avatars gives every user a unique, animated identity — in one line of code.
+            Ghosty Avatar gives every user a unique, animated identity — in one line of code.
           </p>
         </div>
 
